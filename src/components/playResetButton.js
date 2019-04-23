@@ -3,7 +3,7 @@ import videojs from 'video.js';
 const dom = videojs.dom || videojs;
 const ClickableComponent = videojs.getComponent('ClickableComponent');
 
-class PlayResumeButton extends ClickableComponent {
+class PlayResetButton extends ClickableComponent {
   constructor(player, options) {
     super(player, options);
 
@@ -12,16 +12,16 @@ class PlayResumeButton extends ClickableComponent {
 
   createEl() {
     const el = dom.createEl('div', {
-      className: `vjs-control vjs-play-resume-button`
+      className: `vjs-control vjs-play-reset-button`
     });
 
     const span = dom.createEl('span', {
-      className: 'vjs-icon-play'
+      className: 'vjs-icon-replay'
     });
 
     const text = dom.createEl('p');
 
-    text.innerHTML = this.localize('resumeContent')
+    text.innerHTML = this.localize('resetContent')
 
     el.appendChild(span);
     el.appendChild(text);
@@ -31,10 +31,11 @@ class PlayResumeButton extends ClickableComponent {
   handleClick(event) {
     this.parent.closed = true;
     this.parent.hide();
+    this.player().currentTime(0);
     this.player().play()
   }
 }
 
-videojs.registerComponent('ResumeContentPlayResumeButton', PlayResumeButton);
+videojs.registerComponent('ResumeContentPlayResetButton', PlayResetButton);
 
-export default PlayResumeButton;
+export default PlayResetButton;

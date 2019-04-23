@@ -4,29 +4,48 @@ const dom = videojs.dom || videojs;
 const Component = videojs.getComponent("Component");
 
 import "./playResumeButton";
+import "./playResetButton";
 
 class Container extends Component {
   constructor(player, options) {
     super(player, options);
 
-    let player = this.player();
+    this.init = this.init.bind(this);
 
-
-    console.log('currentTime',this.player_.currentTime());
-    console.log('Duration',this.player_.duration());
-
-    this.open = false;
-    this.closed = false;
+    this.init(player);
 
     this.playResumeButton = this.addChild("ResumeContentPlayResumeButton", {
       parent: this
     });
 
+    this.playResetButton = this.addChild("ResumeContentPlayResetButton", {
+      parent: this
+    });
+
+  }
+
+  init(player) {
+    /**
+     *
+     * se deja la siguiente lineas para 
+     * tests del developer
+     */
+    player.currentTime(42);
+
+
+    player.play();
+    setTimeout(()=>{
+      player.pause();
+    },100);
+
+    this.open = false;
+    this.closed = false;
+
   }
 
   createEl() {
     const el = dom.createEl("div", {
-      className: `vjs-content-resume-container vjs-hidden-`
+      className: `vjs-content-resume-container vjs-hidden`
     });
 
     return el;
@@ -35,11 +54,15 @@ class Container extends Component {
   show() {
     super.show();
     this.open = true;
+    this.player().controlBar.hide()
+    this.player().bigPlayButton.hide()
   }
 
   hide() {
     super.hide();
     this.open = false;
+    this.player().controlBar.show()
+    this.player().bigPlayButton.show()
   }  
 }
 

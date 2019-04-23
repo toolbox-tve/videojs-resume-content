@@ -3,6 +3,14 @@ import {version as VERSION} from '../package.json';
 
 import Container from './components/container';
 
+import es from '../lang/es.json';
+import pt from '../lang/pt.json';
+import en from '../lang/en.json';
+
+videojs.addLanguage('es', es);
+videojs.addLanguage('en', en);
+videojs.addLanguage('pt', pt);
+
 // Default options for the plugin.
 const defaults = {};
 
@@ -41,11 +49,20 @@ const onPlayerReady = (player, options) => {
  *           An object of options left to the plugin author to define.
  */
 const resumeContent = function(options) {
-  this.ready(() => {
+  this.container = this.addChild('ResumeContent', options);
+
+  this.ready(()=>{
     onPlayerReady(this, videojs.mergeOptions(defaults, options));
+  })
+
+  this.on('loadedmetadata',() => {
+    if(this.currentTime() >= (this.duration()*.90)){
+      this.container.show();
+    } else {
+      this.play();
+    }
   });
 
-  this.container = this.addChild('ResumeContent', options);
 
 };
 

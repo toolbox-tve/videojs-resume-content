@@ -11,8 +11,9 @@
  *   https://www.w3.org/TR/css-variables-1/
  */
 
-@import './components/container';
-@import './components/playResumeButton';
+@import './components/_container';
+@import './components/_playResumeButton';
+@import './components/_playResetButton';
  
 
 
