@@ -21,7 +21,9 @@ class PlayResumeButton extends ClickableComponent {
 
     const text = dom.createEl('p');
 
-    text.innerHTML = this.localize('resumeContent')
+    const currentTime = videojs.formatTime(this.player().currentTime());
+
+    text.innerHTML =  `${this.localize('resumeContent')} ${currentTime}`
 
     el.appendChild(span);
     el.appendChild(text);

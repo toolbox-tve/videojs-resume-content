@@ -56,10 +56,15 @@ const resumeContent = function(options) {
   })
 
   this.on('loadedmetadata',() => {
-    if(this.currentTime() >= (this.duration()*.90)){
-      this.container.show();
+    let player = this;
+    if(player.currentTime() >= (player.duration()*.90)){
+      player.container.show();
     } else {
-      this.play();
+      player.container.hide();
+      setTimeout(()=>{
+        console.log('play the player')
+        player.play();
+      },1000)
     }
   });
 
