@@ -73,6 +73,30 @@ class PlayResumeButton extends ClickableComponent {
       this.button.style.height = "32px";
       this.button.style.width = "70%";
       this.button.style.left = "15%";
+    } else if (width < 500) {
+      this.text.style.fontSize = '18px';
+      this.span.style.fontSize = '18px';
+      this.span.style.marginLeft = '18px';
+
+      this.button.style.height = "32px";
+      this.button.style.width = "90%";
+      this.button.style.left = "10%";
+    } else if (width < 700) {
+      this.text.style.fontSize = '22px';
+      this.span.style.fontSize = '22px';
+      this.span.style.marginLeft = '22px';
+
+      this.button.style.height = "32px";
+      this.button.style.width = "90%";
+      this.button.style.left = "10%";
+    } else if (width < 1000) {
+      this.text.style.fontSize = '22px';
+      this.span.style.fontSize = '22px';
+      this.span.style.marginLeft = '22px';
+
+      this.button.style.height = "32px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
     } else {
       this.text.style.fontSize = '28px';
       this.span.style.fontSize = '28px';
