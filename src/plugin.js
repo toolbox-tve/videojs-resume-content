@@ -55,8 +55,9 @@ const resumeContent = function(options) {
     onPlayerReady(this, videojs.mergeOptions(defaults, options));
   })
 
-  this.on('loadedmetadata',() => {
+  this.on('loadeddata',() => {
     let player = this;
+    player.pause();
     if(player.currentTime() >= (player.duration()*.90)){
       player.container.show();
     } else {

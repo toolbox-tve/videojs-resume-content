@@ -142,7 +142,7 @@ function (_Component) {
      * se deja la siguiente lineas para 
      * tests del developer
      */
-    // player.currentTime(43);
+    player.currentTime(43);
     this.open = false;
     this.closed = false;
   };
@@ -243,8 +243,9 @@ var resumeContent$3 = function resumeContent(options) {
   this.ready(function () {
     onPlayerReady(_this, videojs.mergeOptions(defaults, options));
   });
-  this.on('loadedmetadata', function () {
+  this.on('loadeddata', function () {
     var player = _this;
+    player.pause();
 
     if (player.currentTime() >= player.duration() * .90) {
       player.container.show();
