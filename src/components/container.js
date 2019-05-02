@@ -38,7 +38,7 @@ class Container extends Component {
      * se deja la siguiente lineas para 
      * tests del developer
      */
-    player.currentTime(42);
+    // player.currentTime(42);
 
     this.open = false;
     this.closed = false;

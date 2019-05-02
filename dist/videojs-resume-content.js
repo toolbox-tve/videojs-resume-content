@@ -1,4 +1,4 @@
-/*! @name videojs-resume-content @version 0.0.6 @license MIT */
+/*! @name videojs-resume-content @version 0.0.8 @license MIT */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('video.js')) :
   typeof define === 'function' && define.amd ? define(['video.js'], factory) :
@@ -7,7 +7,7 @@
 
   videojs = videojs && videojs.hasOwnProperty('default') ? videojs['default'] : videojs;
 
-  var version = "0.0.6";
+  var version = "0.0.8";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -275,7 +275,7 @@
        * se deja la siguiente lineas para 
        * tests del developer
        */
-      player.currentTime(42);
+      // player.currentTime(42);
       this.open = false;
       this.closed = false;
     };

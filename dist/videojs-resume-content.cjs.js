@@ -1,11 +1,11 @@
-/*! @name videojs-resume-content @version 0.0.6 @license MIT */
+/*! @name videojs-resume-content @version 0.0.8 @license MIT */
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var videojs = _interopDefault(require('video.js'));
 
-var version = "0.0.6";
+var version = "0.0.8";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -273,7 +273,7 @@ function (_Component) {
      * se deja la siguiente lineas para 
      * tests del developer
      */
-    player.currentTime(42);
+    // player.currentTime(42);
     this.open = false;
     this.closed = false;
   };
