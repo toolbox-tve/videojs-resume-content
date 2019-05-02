@@ -1,7 +1,7 @@
-/*! @name videojs-resume-content @version 0.0.5 @license MIT */
+/*! @name videojs-resume-content @version 0.0.6 @license MIT */
 import videojs from 'video.js';
 
-var version = "0.0.5";
+var version = "0.0.6";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -87,12 +87,12 @@ function (_ClickableComponent) {
       this.button.style.width = "70%";
       this.button.style.left = "15%";
     } else {
-      this.text.style.fontSize = '24px';
-      this.span.style.fontSize = '24px';
-      this.span.style.marginLeft = '24px';
+      this.text.style.fontSize = '28px';
+      this.span.style.fontSize = '28px';
+      this.span.style.marginLeft = '28px';
       this.button.style.width = "80%";
       this.button.style.left = "20%";
-      this.button.style.height = "42px";
+      this.button.style.height = "48px";
     }
   };
 
@@ -171,12 +171,12 @@ function (_ClickableComponent) {
       this.button.style.width = "70%";
       this.button.style.left = "15%";
     } else {
-      this.text.style.fontSize = '24px';
-      this.span.style.fontSize = '24px';
-      this.span.style.marginLeft = '24px';
+      this.text.style.fontSize = '28px';
+      this.span.style.fontSize = '28px';
+      this.span.style.marginLeft = '28px';
       this.button.style.width = "80%";
       this.button.style.left = "20%";
-      this.button.style.height = "42px";
+      this.button.style.height = "48px";
     }
   };
 

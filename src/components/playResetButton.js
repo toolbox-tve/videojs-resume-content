@@ -73,13 +73,13 @@ class PlayResetButton extends ClickableComponent {
       this.button.style.width = "70%";
       this.button.style.left = "15%";
     } else {
-      this.text.style.fontSize = '24px';
-      this.span.style.fontSize = '24px';
-      this.span.style.marginLeft = '24px';
+      this.text.style.fontSize = '28px';
+      this.span.style.fontSize = '28px';
+      this.span.style.marginLeft = '28px';
 
       this.button.style.width = "80%";
       this.button.style.left = "20%";
-      this.button.style.height = "42px";
+      this.button.style.height = "48px";
     }
   }
 }

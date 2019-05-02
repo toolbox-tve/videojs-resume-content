@@ -1,4 +1,4 @@
-/*! @name videojs-resume-content @version 0.0.5 @license MIT */
+/*! @name videojs-resume-content @version 0.0.6 @license MIT */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('video.js')) :
   typeof define === 'function' && define.amd ? define(['video.js'], factory) :
@@ -7,7 +7,7 @@
 
   videojs = videojs && videojs.hasOwnProperty('default') ? videojs['default'] : videojs;
 
-  var version = "0.0.5";
+  var version = "0.0.6";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -93,12 +93,12 @@
         this.button.style.width = "70%";
         this.button.style.left = "15%";
       } else {
-        this.text.style.fontSize = '24px';
-        this.span.style.fontSize = '24px';
-        this.span.style.marginLeft = '24px';
+        this.text.style.fontSize = '28px';
+        this.span.style.fontSize = '28px';
+        this.span.style.marginLeft = '28px';
         this.button.style.width = "80%";
         this.button.style.left = "20%";
-        this.button.style.height = "42px";
+        this.button.style.height = "48px";
       }
     };
 
@@ -177,12 +177,12 @@
         this.button.style.width = "70%";
         this.button.style.left = "15%";
       } else {
-        this.text.style.fontSize = '24px';
-        this.span.style.fontSize = '24px';
-        this.span.style.marginLeft = '24px';
+        this.text.style.fontSize = '28px';
+        this.span.style.fontSize = '28px';
+        this.span.style.marginLeft = '28px';
         this.button.style.width = "80%";
         this.button.style.left = "20%";
-        this.button.style.height = "42px";
+        this.button.style.height = "48px";
       }
     };
 
