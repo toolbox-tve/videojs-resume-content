@@ -11,8 +11,9 @@ class Container extends Component {
     super(player, options);
 
     this.init = this.init.bind(this);
-
     this.init(player);
+
+    this.bindedOnPlayerResize = this.onPlayerResize.bind(this);
 
     this.playResumeButton = this.addChild("ResumeContentPlayResumeButton", {
       parent: this
@@ -22,6 +23,13 @@ class Container extends Component {
       parent: this
     });
 
+    this.player_.on("resize", this.bindedOnPlayerResize);
+
+  }
+
+  onPlayerResize() {
+    this.playResumeButton.resize();
+    this.playResetButton.resize();
   }
 
   init(player) {

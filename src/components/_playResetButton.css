@@ -4,11 +4,9 @@
   clear: left;
   cursor: pointer;
   text-align: center;
-  height: 75px !important;
-  width: 50% !important;
-  left: 25% !important;
-  top: 32.5% !important;
-  font-size: 1.25vw;
+  top: 46% !important;
+  font-size: 2em;
+  width: 100% !important;
 }
 
 .vjs-play-reset-button > span {

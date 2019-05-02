@@ -3,11 +3,9 @@
   float:left;
   cursor: pointer;
   text-align: center;
-  height: 75px !important;
-  width: 50% !important;
-  left: 25% !important;
-  top: 37.5% !important;
-  font-size: 1.25vw;
+  width: 100% !important;
+  top: 45% !important;
+  font-size: 2em;
 }
 
 .vjs-play-resume-button > span {

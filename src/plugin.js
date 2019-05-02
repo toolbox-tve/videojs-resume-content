@@ -56,6 +56,7 @@ const resumeContent = function(options) {
   })
 
   this.on('loadeddata',() => {
+    this.container.onPlayerResize()
     let player = this;
     player.pause();
     if(player.currentTime() >= (player.duration()*.90)){

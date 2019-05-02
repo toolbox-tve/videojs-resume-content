@@ -15,18 +15,20 @@ class PlayResumeButton extends ClickableComponent {
       className: `vjs-control vjs-play-resume-button`
     });
 
-    const span = dom.createEl('span', {
+    this.button = el;
+
+    this.span = dom.createEl('span', {
       className: 'vjs-icon-play'
     });
 
-    const text = dom.createEl('p');
+    this.text = dom.createEl('p');
 
     const currentTime = videojs.formatTime(this.player().currentTime());
 
-    text.innerHTML =  `${this.localize('resumeContent')} ${currentTime}`
+    this.text.innerHTML =  `${this.localize('resumeContent')} ${currentTime}`
 
-    el.appendChild(span);
-    el.appendChild(text);
+    el.appendChild(this.span);
+    el.appendChild(this.text);
     return el;
   }
 
@@ -34,6 +36,52 @@ class PlayResumeButton extends ClickableComponent {
     this.parent.closed = true;
     this.parent.hide();
     this.player().play()
+  }
+
+  resize() {
+
+    if(!this.player_ && !this.player_.el_)
+      return;
+
+    const width = this.player_.el_.offsetWidth;
+
+    if (this.lastWidth !== width) {
+      this.lastWidth = width;
+    } else {
+      return;
+    }
+
+    if (width < 200) {
+      this.text.style.fontSize = '10px';
+      this.span.style.fontSize = '10px';
+      this.span.style.marginLeft = '10px';
+
+      this.button.style.height = "24px";
+    } else if (width < 300) {
+      this.text.style.fontSize = '12px';
+      this.span.style.fontSize = '12px';
+      this.span.style.marginLeft = '12px';
+
+      this.button.style.height = "24px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else if (width < 400) {
+      this.text.style.fontSize = '16px';
+      this.span.style.fontSize = '16px';
+      this.span.style.marginLeft = '16px';
+
+      this.button.style.height = "32px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else {
+      this.text.style.fontSize = '24px';
+      this.span.style.fontSize = '24px';
+      this.span.style.marginLeft = '24px';
+
+      this.button.style.width = "80%";
+      this.button.style.left = "20%";
+      this.button.style.height = "42px";
+    }
   }
 }
 

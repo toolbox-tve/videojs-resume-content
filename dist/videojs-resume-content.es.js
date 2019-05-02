@@ -39,14 +39,15 @@ function (_ClickableComponent) {
     var el = dom.createEl('div', {
       className: "vjs-control vjs-play-resume-button"
     });
-    var span = dom.createEl('span', {
+    this.button = el;
+    this.span = dom.createEl('span', {
       className: 'vjs-icon-play'
     });
-    var text = dom.createEl('p');
+    this.text = dom.createEl('p');
     var currentTime = videojs.formatTime(this.player().currentTime());
-    text.innerHTML = this.localize('resumeContent') + " " + currentTime;
-    el.appendChild(span);
-    el.appendChild(text);
+    this.text.innerHTML = this.localize('resumeContent') + " " + currentTime;
+    el.appendChild(this.span);
+    el.appendChild(this.text);
     return el;
   };
 
@@ -54,6 +55,45 @@ function (_ClickableComponent) {
     this.parent.closed = true;
     this.parent.hide();
     this.player().play();
+  };
+
+  _proto.resize = function resize() {
+    if (!this.player_ && !this.player_.el_) return;
+    var width = this.player_.el_.offsetWidth;
+
+    if (this.lastWidth !== width) {
+      this.lastWidth = width;
+    } else {
+      return;
+    }
+
+    if (width < 200) {
+      this.text.style.fontSize = '10px';
+      this.span.style.fontSize = '10px';
+      this.span.style.marginLeft = '10px';
+      this.button.style.height = "24px";
+    } else if (width < 300) {
+      this.text.style.fontSize = '12px';
+      this.span.style.fontSize = '12px';
+      this.span.style.marginLeft = '12px';
+      this.button.style.height = "24px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else if (width < 400) {
+      this.text.style.fontSize = '16px';
+      this.span.style.fontSize = '16px';
+      this.span.style.marginLeft = '16px';
+      this.button.style.height = "32px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else {
+      this.text.style.fontSize = '24px';
+      this.span.style.fontSize = '24px';
+      this.span.style.marginLeft = '24px';
+      this.button.style.width = "80%";
+      this.button.style.left = "20%";
+      this.button.style.height = "42px";
+    }
   };
 
   return PlayResumeButton;
@@ -83,13 +123,14 @@ function (_ClickableComponent) {
     var el = dom$1.createEl('div', {
       className: "vjs-control vjs-play-reset-button"
     });
-    var span = dom$1.createEl('span', {
+    this.button = el;
+    this.span = dom$1.createEl('span', {
       className: 'vjs-icon-replay'
     });
-    var text = dom$1.createEl('p');
-    text.innerHTML = this.localize('resetContent');
-    el.appendChild(span);
-    el.appendChild(text);
+    this.text = dom$1.createEl('p');
+    this.text.innerHTML = this.localize('resetContent');
+    el.appendChild(this.span);
+    el.appendChild(this.text);
     return el;
   };
 
@@ -98,6 +139,45 @@ function (_ClickableComponent) {
     this.parent.hide();
     this.player().currentTime(0);
     this.player().play();
+  };
+
+  _proto.resize = function resize() {
+    if (!this.player_ && !this.player_.el_) return;
+    var width = this.player_.el_.offsetWidth;
+
+    if (this.lastWidth !== width) {
+      this.lastWidth = width;
+    } else {
+      return;
+    }
+
+    if (width < 200) {
+      this.text.style.fontSize = '10px';
+      this.span.style.fontSize = '10px';
+      this.span.style.marginLeft = '10px';
+      this.button.style.height = "24px";
+    } else if (width < 300) {
+      this.text.style.fontSize = '12px';
+      this.span.style.fontSize = '12px';
+      this.span.style.marginLeft = '12px';
+      this.button.style.height = "24px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else if (width < 400) {
+      this.text.style.fontSize = '16px';
+      this.span.style.fontSize = '16px';
+      this.span.style.marginLeft = '16px';
+      this.button.style.height = "32px";
+      this.button.style.width = "70%";
+      this.button.style.left = "15%";
+    } else {
+      this.text.style.fontSize = '24px';
+      this.span.style.fontSize = '24px';
+      this.span.style.marginLeft = '24px';
+      this.button.style.width = "80%";
+      this.button.style.left = "20%";
+      this.button.style.height = "42px";
+    }
   };
 
   return PlayResetButton;
@@ -121,16 +201,25 @@ function (_Component) {
 
     _this.init(player);
 
+    _this.bindedOnPlayerResize = _this.onPlayerResize.bind(_assertThisInitialized(_this));
     _this.playResumeButton = _this.addChild("ResumeContentPlayResumeButton", {
       parent: _assertThisInitialized(_this)
     });
     _this.playResetButton = _this.addChild("ResumeContentPlayResetButton", {
       parent: _assertThisInitialized(_this)
     });
+
+    _this.player_.on("resize", _this.bindedOnPlayerResize);
+
     return _this;
   }
 
   var _proto = Container.prototype;
+
+  _proto.onPlayerResize = function onPlayerResize() {
+    this.playResumeButton.resize();
+    this.playResetButton.resize();
+  };
 
   _proto.init = function init(player) {
     /**
@@ -138,7 +227,7 @@ function (_Component) {
      * se deja la siguiente lineas para 
      * tests del developer
      */
-    // player.currentTime(42);
+    player.currentTime(42);
     this.open = false;
     this.closed = false;
   };
@@ -240,6 +329,8 @@ var resumeContent$3 = function resumeContent(options) {
     onPlayerReady(_this, videojs.mergeOptions(defaults, options));
   });
   this.on('loadeddata', function () {
+    _this.container.onPlayerResize();
+
     var player = _this;
     player.pause();
 
