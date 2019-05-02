@@ -1,11 +1,11 @@
-/*! @name videojs-resume-content @version 0.0.0 @license MIT */
+/*! @name videojs-resume-content @version 0.0.3 @license MIT */
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var videojs = _interopDefault(require('video.js'));
 
-var version = "0.0.0";
+var version = "0.0.3";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -137,10 +137,12 @@ function (_Component) {
   var _proto = Container.prototype;
 
   _proto.init = function init(player) {
-    player.play();
-    setTimeout(function () {
-      player.pause();
-    }, 100);
+    /**
+     *
+     * se deja la siguiente lineas para 
+     * tests del developer
+     */
+    // player.currentTime(43);
     this.open = false;
     this.closed = false;
   };

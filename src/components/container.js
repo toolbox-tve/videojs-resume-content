@@ -25,10 +25,12 @@ class Container extends Component {
   }
 
   init(player) {
-    player.play();
-    setTimeout(()=>{
-      player.pause();
-    },100);
+    /**
+     *
+     * se deja la siguiente lineas para 
+     * tests del developer
+     */
+    // player.currentTime(43);
 
     this.open = false;
     this.closed = false;
