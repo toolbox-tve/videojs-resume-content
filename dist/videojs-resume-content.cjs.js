@@ -137,12 +137,6 @@ function (_Component) {
   var _proto = Container.prototype;
 
   _proto.init = function init(player) {
-    /**
-     *
-     * se deja la siguiente lineas para 
-     * tests del developer
-     */
-    player.currentTime(42);
     player.play();
     setTimeout(function () {
       player.pause();
