@@ -1,11 +1,11 @@
-/*! @name videojs-resume-content @version 0.0.9 @license MIT */
+/*! @name videojs-resume-content @version 0.0.11 @license MIT */
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var videojs = _interopDefault(require('video.js'));
 
-var version = "0.0.9";
+var version = "0.0.11";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -34,7 +34,6 @@ function (_ClickableComponent) {
 
     _this = _ClickableComponent.call(this, player, options) || this;
     _this.parent = options.parent;
-    player.one('pause', _this.update.bind(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -49,16 +48,12 @@ function (_ClickableComponent) {
       className: 'vjs-icon-play'
     });
     this.text = dom.createEl('p');
-    var currentTime = videojs.formatTime(this.player().currentTime());
+    var time = this.options_ && this.options_.bookmark;
+    var currentTime = videojs.formatTime(time || 0);
     this.text.innerHTML = this.localize('resumeContent') + " " + currentTime;
     el.appendChild(this.span);
     el.appendChild(this.text);
     return el;
-  };
-
-  _proto.update = function update() {
-    var currentTime = videojs.formatTime(this.player().currentTime());
-    this.text.innerHTML = this.localize('resumeContent') + " " + currentTime;
   };
 
   _proto.handleClick = function handleClick(event) {
@@ -241,7 +236,7 @@ function (_ClickableComponent) {
 videojs.registerComponent('ResumeContentPlayResetButton', PlayResetButton);
 
 var dom$2 = videojs.dom || videojs;
-var Component = videojs.getComponent("Component");
+var Component = videojs.getComponent('Component');
 
 var Container =
 /*#__PURE__*/
@@ -257,14 +252,11 @@ function (_Component) {
     _this.init(player);
 
     _this.bindedOnPlayerResize = _this.onPlayerResize.bind(_assertThisInitialized(_this));
-    _this.playResumeButton = _this.addChild("ResumeContentPlayResumeButton", {
-      parent: _assertThisInitialized(_this)
-    });
-    _this.playResetButton = _this.addChild("ResumeContentPlayResetButton", {
-      parent: _assertThisInitialized(_this)
-    });
+    options.parent = _assertThisInitialized(_this);
+    _this.playResumeButton = _this.addChild('ResumeContentPlayResumeButton', options);
+    _this.playResetButton = _this.addChild('ResumeContentPlayResetButton', options);
 
-    _this.player_.on("resize", _this.bindedOnPlayerResize);
+    _this.player_.on('resize', _this.bindedOnPlayerResize);
 
     return _this;
   }
@@ -279,7 +271,7 @@ function (_Component) {
   _proto.init = function init(player) {
     /**
      *
-     * se deja la siguiente lineas para 
+     * se deja la siguiente lineas para
      * tests del developer
      */
     // player.currentTime(42);
@@ -288,8 +280,8 @@ function (_Component) {
   };
 
   _proto.createEl = function createEl() {
-    var el = dom$2.createEl("div", {
-      className: "vjs-content-resume-container vjs-hidden"
+    var el = dom$2.createEl('div', {
+      className: 'vjs-content-resume-container vjs-hidden'
     });
     return el;
   };
@@ -298,22 +290,23 @@ function (_Component) {
     _Component.prototype.show.call(this);
 
     this.open = true;
-    this.player().controlBar.hide();
-    this.player().bigPlayButton.hide();
+    this.player_.removeClass('vjs-paused');
+    this.player_.controlBar.hide();
+    this.player_.bigPlayButton.hide();
   };
 
   _proto.hide = function hide() {
     _Component.prototype.hide.call(this);
 
     this.open = false;
-    this.player().controlBar.show();
-    this.player().bigPlayButton.show();
+    this.player_.controlBar.show();
+    this.player_.bigPlayButton.show();
   };
 
   return Container;
 }(Component);
 
-videojs.registerComponent("ResumeContent", Container);
+videojs.registerComponent('ResumeContent', Container);
 
 var resumeContent = "Reanudar contenido en";
 var resetContent = "Reproducir desde el comienzo";
@@ -340,7 +333,9 @@ videojs.addLanguage('es', es);
 videojs.addLanguage('en', en);
 videojs.addLanguage('pt', pt); // Default options for the plugin.
 
-var defaults = {}; // Cross-compatibility for Video.js 5 and 6.
+var defaults = {
+  bookmark: 0
+}; // Cross-compatibility for Video.js 5 and 6.
 
 var registerPlugin = videojs.registerPlugin || videojs.plugin; // const dom = videojs.dom || videojs;
 
@@ -383,21 +378,19 @@ var resumeContent$3 = function resumeContent(options) {
   this.ready(function () {
     onPlayerReady(_this, videojs.mergeOptions(defaults, options));
   });
-  this.on('canplay', function () {
+  this.one('canplay', function () {
     _this.container.onPlayerResize();
 
     var player = _this;
     player.pause();
-
-    if (player.currentTime() >= player.duration() * 0.90) {
-      player.container.show();
-    } else {
-      player.container.hide();
-      setTimeout(function () {
-        console.log('play the player');
+    player.one('pause', function () {
+      if (player.currentTime() >= player.duration() * 0.90) {
+        player.container.show();
+      } else {
+        player.container.hide();
         player.play();
-      }, 1000);
-    }
+      }
+    });
   });
 }; // Register the plugin with video.js.
 
