@@ -8,7 +8,6 @@ class PlayResumeButton extends ClickableComponent {
     super(player, options);
 
     this.parent = options.parent;
-    player.one('pause', this.update.bind(this));
   }
 
   createEl() {
@@ -24,19 +23,14 @@ class PlayResumeButton extends ClickableComponent {
 
     this.text = dom.createEl('p');
 
-    const currentTime = videojs.formatTime(this.player().currentTime());
+    const time = this.options_ && this.options_.bookmark;
+    const currentTime = videojs.formatTime(time || 0);
 
     this.text.innerHTML = `${this.localize('resumeContent')} ${currentTime}`;
 
     el.appendChild(this.span);
     el.appendChild(this.text);
     return el;
-  }
-
-  update() {
-    const currentTime = videojs.formatTime(this.player().currentTime());
-
-    this.text.innerHTML = `${this.localize('resumeContent')} ${currentTime}`;
   }
 
   handleClick(event) {

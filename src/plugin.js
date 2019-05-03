@@ -12,7 +12,9 @@ videojs.addLanguage('en', en);
 videojs.addLanguage('pt', pt);
 
 // Default options for the plugin.
-const defaults = {};
+const defaults = {
+  bookmark: 0
+};
 
 // Cross-compatibility for Video.js 5 and 6.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
@@ -55,20 +57,19 @@ const resumeContent = function(options) {
     onPlayerReady(this, videojs.mergeOptions(defaults, options));
   });
 
-  this.on('canplay', () => {
+  this.one('canplay', () => {
     this.container.onPlayerResize();
     const player = this;
 
     player.pause();
-    if (player.currentTime() >= (player.duration() * 0.90)) {
-      player.container.show();
-    } else {
-      player.container.hide();
-      setTimeout(()=>{
-        console.log('play the player');
+    player.one('pause', () => {
+      if (player.currentTime() >= (player.duration() * 0.90)) {
+        player.container.show();
+      } else {
+        player.container.hide();
         player.play();
-      }, 1000);
-    }
+      }
+    });
   });
 
 };
