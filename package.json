@@ -1,6 +1,6 @@
 {
   "name": "videojs-resume-content",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "",
   "main": "dist/videojs-resume-content.cjs.js",
   "module": "dist/videojs-resume-content.es.js",

@@ -1,10 +1,10 @@
-import videojs from "video.js";
+import videojs from 'video.js';
 
 const dom = videojs.dom || videojs;
-const Component = videojs.getComponent("Component");
+const Component = videojs.getComponent('Component');
 
-import "./playResumeButton";
-import "./playResetButton";
+import './playResumeButton';
+import './playResetButton';
 
 class Container extends Component {
   constructor(player, options) {
@@ -15,15 +15,13 @@ class Container extends Component {
 
     this.bindedOnPlayerResize = this.onPlayerResize.bind(this);
 
-    this.playResumeButton = this.addChild("ResumeContentPlayResumeButton", {
-      parent: this
-    });
+    options.parent = this;
 
-    this.playResetButton = this.addChild("ResumeContentPlayResetButton", {
-      parent: this
-    });
+    this.playResumeButton = this.addChild('ResumeContentPlayResumeButton', options);
 
-    this.player_.on("resize", this.bindedOnPlayerResize);
+    this.playResetButton = this.addChild('ResumeContentPlayResetButton', options);
+
+    this.player_.on('resize', this.bindedOnPlayerResize);
 
   }
 
@@ -35,7 +33,7 @@ class Container extends Component {
   init(player) {
     /**
      *
-     * se deja la siguiente lineas para 
+     * se deja la siguiente lineas para
      * tests del developer
      */
     // player.currentTime(42);
@@ -46,8 +44,8 @@ class Container extends Component {
   }
 
   createEl() {
-    const el = dom.createEl("div", {
-      className: `vjs-content-resume-container vjs-hidden`
+    const el = dom.createEl('div', {
+      className: 'vjs-content-resume-container vjs-hidden'
     });
 
     return el;
@@ -56,18 +54,19 @@ class Container extends Component {
   show() {
     super.show();
     this.open = true;
-    this.player().controlBar.hide()
-    this.player().bigPlayButton.hide()
+    this.player_.removeClass('vjs-paused');
+    this.player_.controlBar.hide();
+    this.player_.bigPlayButton.hide();
   }
 
   hide() {
     super.hide();
     this.open = false;
-    this.player().controlBar.show()
-    this.player().bigPlayButton.show()
-  }  
+    this.player_.controlBar.show();
+    this.player_.bigPlayButton.show();
+  }
 }
 
-videojs.registerComponent("ResumeContent", Container);
+videojs.registerComponent('ResumeContent', Container);
 
 export default Container;
