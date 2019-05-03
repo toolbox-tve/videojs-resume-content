@@ -30,6 +30,7 @@ function (_ClickableComponent) {
 
     _this = _ClickableComponent.call(this, player, options) || this;
     _this.parent = options.parent;
+    player.one('pause', _this.update.bind(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -37,7 +38,7 @@ function (_ClickableComponent) {
 
   _proto.createEl = function createEl() {
     var el = dom.createEl('div', {
-      className: "vjs-control vjs-play-resume-button"
+      className: 'vjs-control vjs-play-resume-button'
     });
     this.button = el;
     this.span = dom.createEl('span', {
@@ -51,6 +52,11 @@ function (_ClickableComponent) {
     return el;
   };
 
+  _proto.update = function update() {
+    var currentTime = videojs.formatTime(this.player().currentTime());
+    this.text.innerHTML = this.localize('resumeContent') + " " + currentTime;
+  };
+
   _proto.handleClick = function handleClick(event) {
     this.parent.closed = true;
     this.parent.hide();
@@ -58,7 +64,10 @@ function (_ClickableComponent) {
   };
 
   _proto.resize = function resize() {
-    if (!this.player_ && !this.player_.el_) return;
+    if (!this.player_ && !this.player_.el_) {
+      return;
+    }
+
     var width = this.player_.el_.offsetWidth;
 
     if (this.lastWidth !== width) {
@@ -71,49 +80,49 @@ function (_ClickableComponent) {
       this.text.style.fontSize = '10px';
       this.span.style.fontSize = '10px';
       this.span.style.marginLeft = '10px';
-      this.button.style.height = "24px";
+      this.button.style.height = '24px';
     } else if (width < 300) {
       this.text.style.fontSize = '12px';
       this.span.style.fontSize = '12px';
       this.span.style.marginLeft = '12px';
-      this.button.style.height = "24px";
-      this.button.style.width = "70%";
-      this.button.style.left = "15%";
+      this.button.style.height = '24px';
+      this.button.style.width = '70%';
+      this.button.style.left = '15%';
     } else if (width < 400) {
       this.text.style.fontSize = '16px';
       this.span.style.fontSize = '16px';
       this.span.style.marginLeft = '16px';
-      this.button.style.height = "32px";
-      this.button.style.width = "70%";
-      this.button.style.left = "15%";
+      this.button.style.height = '32px';
+      this.button.style.width = '70%';
+      this.button.style.left = '15%';
     } else if (width < 500) {
       this.text.style.fontSize = '18px';
       this.span.style.fontSize = '18px';
       this.span.style.marginLeft = '18px';
-      this.button.style.height = "32px";
-      this.button.style.width = "90%";
-      this.button.style.left = "10%";
+      this.button.style.height = '32px';
+      this.button.style.width = '90%';
+      this.button.style.left = '10%';
     } else if (width < 700) {
       this.text.style.fontSize = '22px';
       this.span.style.fontSize = '22px';
       this.span.style.marginLeft = '22px';
-      this.button.style.height = "32px";
-      this.button.style.width = "90%";
-      this.button.style.left = "10%";
+      this.button.style.height = '32px';
+      this.button.style.width = '90%';
+      this.button.style.left = '10%';
     } else if (width < 1000) {
       this.text.style.fontSize = '22px';
       this.span.style.fontSize = '22px';
       this.span.style.marginLeft = '22px';
-      this.button.style.height = "32px";
-      this.button.style.width = "70%";
-      this.button.style.left = "15%";
+      this.button.style.height = '32px';
+      this.button.style.width = '70%';
+      this.button.style.left = '15%';
     } else {
       this.text.style.fontSize = '28px';
       this.span.style.fontSize = '28px';
       this.span.style.marginLeft = '28px';
-      this.button.style.width = "80%";
-      this.button.style.left = "20%";
-      this.button.style.height = "48px";
+      this.button.style.width = '80%';
+      this.button.style.left = '20%';
+      this.button.style.height = '48px';
     }
   };
 
