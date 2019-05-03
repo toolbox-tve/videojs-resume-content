@@ -53,23 +53,23 @@ const resumeContent = function(options) {
 
   this.ready(()=>{
     onPlayerReady(this, videojs.mergeOptions(defaults, options));
-  })
+  });
 
-  this.on('loadeddata',() => {
-    this.container.onPlayerResize()
-    let player = this;
+  this.on('canplay', () => {
+    this.container.onPlayerResize();
+    const player = this;
+
     player.pause();
-    if(player.currentTime() >= (player.duration()*.90)){
+    if (player.currentTime() >= (player.duration() * 0.90)) {
       player.container.show();
     } else {
       player.container.hide();
       setTimeout(()=>{
-        console.log('play the player')
+        console.log('play the player');
         player.play();
-      },1000)
+      }, 1000);
     }
   });
-
 
 };
 
