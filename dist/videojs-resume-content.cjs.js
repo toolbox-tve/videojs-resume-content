@@ -1,11 +1,11 @@
-/*! @name videojs-resume-content @version 0.0.8 @license MIT */
+/*! @name videojs-resume-content @version 0.0.9 @license MIT */
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var videojs = _interopDefault(require('video.js'));
 
-var version = "0.0.8";
+var version = "0.0.9";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -374,13 +374,13 @@ var resumeContent$3 = function resumeContent(options) {
   this.ready(function () {
     onPlayerReady(_this, videojs.mergeOptions(defaults, options));
   });
-  this.on('loadeddata', function () {
+  this.on('canplay', function () {
     _this.container.onPlayerResize();
 
     var player = _this;
     player.pause();
 
-    if (player.currentTime() >= player.duration() * .90) {
+    if (player.currentTime() >= player.duration() * 0.90) {
       player.container.show();
     } else {
       player.container.hide();

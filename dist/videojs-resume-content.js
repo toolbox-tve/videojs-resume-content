@@ -1,4 +1,4 @@
-/*! @name videojs-resume-content @version 0.0.8 @license MIT */
+/*! @name videojs-resume-content @version 0.0.9 @license MIT */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('video.js')) :
   typeof define === 'function' && define.amd ? define(['video.js'], factory) :
@@ -7,7 +7,7 @@
 
   videojs = videojs && videojs.hasOwnProperty('default') ? videojs['default'] : videojs;
 
-  var version = "0.0.8";
+  var version = "0.0.9";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -376,13 +376,13 @@
     this.ready(function () {
       onPlayerReady(_this, videojs.mergeOptions(defaults, options));
     });
-    this.on('loadeddata', function () {
+    this.on('canplay', function () {
       _this.container.onPlayerResize();
 
       var player = _this;
       player.pause();
 
-      if (player.currentTime() >= player.duration() * .90) {
+      if (player.currentTime() >= player.duration() * 0.90) {
         player.container.show();
       } else {
         player.container.hide();
